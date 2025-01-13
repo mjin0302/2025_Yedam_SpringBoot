@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>sample.html</title>
+</head>
+<body>
+	sample<br>
+	[[ ${serverTime} ]]
+	<div>[[ ${serverTime} ]]</div>
+	<div th:text="${serverTime}"></div>
+	
+	<div>
+		<p>커맨드 객체는 자동으로 서버에서 view 페이지로 가져올 수 있음 첫글자를 대문자에서 소문자로 바꿔서!</p>
+		[[ ${ todoDTO } ]]
+	</div>
+	
+	<div>
+		title = [[ ${ todoDTO.title } ]]
+	</div>
+	
+	<div>
+		dueDate = [[ ${ todoDTO.dueDate } ]]
+	</div>
+	[[ ${ dept } ]]
+</body>
+</html>
