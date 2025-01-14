@@ -3,7 +3,8 @@ package com.example.demo.di;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-// @Configuration
+// 내가만든 클래스가 아니고 외부 라이브러리를 등록할 때 사용하는 어노테이션
+// @Configuration // 설정 파일이다 라는걸 알려줌
 public class Javaconfig {
 	
 	@Bean
