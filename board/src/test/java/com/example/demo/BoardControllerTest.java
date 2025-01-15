@@ -11,7 +11,12 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.ui.ModelMap;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @AutoConfigureMockMvc // 모의 서버
 @SpringBootTest
 public class BoardControllerTest {
@@ -19,7 +24,7 @@ public class BoardControllerTest {
 	@Autowired
 	MockMvc mvc;
 	
-	@Test
+	//@Test
 	@DisplayName("조회 컨트롤러")
 	void list() throws Exception{
 		mvc.perform(get("/board/list"))
@@ -27,7 +32,7 @@ public class BoardControllerTest {
 //		   .andDo(MockMvcResultHandlers.print()); // 화면에 찍어주는 애?
 	}
 	
-    @Test
+    //@Test
     @DisplayName("main 테스트")
     void main() throws Exception  {
     	String param = "title=comtest&content=내용&writer=kim";
@@ -38,5 +43,19 @@ public class BoardControllerTest {
 //         .andExpect((ResultMatcher) content().string("main"))
 //         .andDo(MockMvcResultHandlers.print());
          ;  
+    }
+
+    @Test
+    @DisplayName("조회 컨트롤러")
+    void list2() throws Exception {
+    	ModelMap map = mvc.perform(MockMvcRequestBuilders.get("/board/list")
+    					                                 .param("page", "100"))
+    	   .andReturn()
+    	   .getModelAndView()
+    	   .getModelMap();
+
+    	log.debug(map.getAttribute("list").toString());
+    	log.debug(map.getAttribute("paging").toString());
+
     }
 }

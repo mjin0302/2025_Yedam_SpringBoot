@@ -3,6 +3,7 @@ package com.example.demo.board.mapper;
 import java.util.List;
 
 import com.example.demo.board.dto.BoardDTO;
+import com.example.demo.board.dto.BoardSearchDTO;
 
 public interface BoardMapper {
 	
@@ -19,5 +20,8 @@ public interface BoardMapper {
 	public BoardDTO read(Long bno);
 	
 	// 전체조회
-	public List<BoardDTO> getList();
+	public List<BoardDTO> getList(BoardSearchDTO dto);
+
+	// 전체 게시글 수 조회
+	public int getCount(BoardSearchDTO searchDto);
 }

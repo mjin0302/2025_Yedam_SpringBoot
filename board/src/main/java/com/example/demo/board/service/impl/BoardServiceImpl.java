@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.board.dto.BoardDTO;
+import com.example.demo.board.dto.BoardSearchDTO;
 import com.example.demo.board.mapper.BoardMapper;
 import com.example.demo.board.service.BoardService;
 
@@ -42,8 +43,14 @@ public class BoardServiceImpl implements BoardService {
 
 	// 전체조회
 	@Override
-	public List<BoardDTO> getList() {
-		return mapper.getList();
+	public List<BoardDTO> getList(BoardSearchDTO dto) {
+		return mapper.getList(dto);
+	}
+
+	@Override
+	public int getCount(BoardSearchDTO searchDto) {
+		
+		return mapper.getCount(searchDto);
 	}
 
 }

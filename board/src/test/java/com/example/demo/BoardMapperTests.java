@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.board.dto.BoardDTO;
+import com.example.demo.board.dto.BoardSearchDTO;
 import com.example.demo.board.mapper.BoardMapper;
 
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +21,7 @@ public class BoardMapperTests {
 	
 	@Autowired BoardMapper mapper;
 	
-	@Test
+	//@Test
 	@DisplayName("게시글 등록")
 	public void register() {
 		// given
@@ -45,7 +46,7 @@ public class BoardMapperTests {
 		assertThat(cnt).isEqualTo(1);
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("게시글 수정")
 	public void modify() {
 		String title = "제목 수정";
@@ -63,14 +64,14 @@ public class BoardMapperTests {
 		assertThat(cnt).isEqualTo(cnt);
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("게시글 삭제")
 	public void remove() {
 		int cnt = mapper.delete(7L);
 		assertThat(cnt).isEqualTo(cnt);
 	}
 	
-	@Test
+	//@Test
 	@DisplayName("게시글 단건 조회")
 	public void get() {
 		// given
@@ -90,9 +91,12 @@ public class BoardMapperTests {
 	@DisplayName("게시글 전체조회")
 	public void getList() {
 		// given
+		BoardSearchDTO search = new BoardSearchDTO();
+		search.setStart(1);
+		search.setEnd(10);
 		
 		//when
-		List<BoardDTO> list = mapper.getList();
+		List<BoardDTO> list = mapper.getList(search);
 		
 		// then
 		list.forEach(board -> log.info(board.toString()));

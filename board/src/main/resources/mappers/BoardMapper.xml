@@ -53,7 +53,7 @@
 	</select>
 	
 	<!-- 전체조회 -->
-	<select id="getList" resultType="BoardDTO">
+<!--<select id="getList" resultType="BoardDTO">
 		SELECT
 		    bno,
 		    title,
@@ -67,5 +67,58 @@
 		WHERE
 	        bno > 0
 	    ]]>
+	</select> -->
+	
+	<select id="getList" resultType="BoardDTO">
+		SELECT 
+		   * 
+		FROM (
+		      SELECT /*+INDEX_DESC(tbl_board pk_board)*/
+		         rownum rn, 
+		         bno, 
+		         title, 
+		         writer,
+		         regdate
+		      FROM   
+		         tbl_board
+		      WHERE
+		      <![CDATA[
+		         rownum < #{end}
+		      ]]>
+		      <include refid="criteria"></include>
+		     ) 
+		WHERE <![CDATA[ rn >= #{start} ]]>
 	</select>
+	
+	<!-- 전체 게시글 수 조회 -->
+	<select id="getCount" resultType="int">
+	  	SELECT 
+	  		COUNT(*) 
+  		FROM 
+  			tbl_board
+  		<where>
+  			<include refid="criteria"></include>
+  		</where>
+	</select>
+	<sql id="criteria">
+		<if test="keyword != null and !keyword.equals('')">
+			<trim prefix="and (" suffix=")" prefixOverrides="or">
+				<foreach item="type" collection="typeArr">
+					<trim prefix="or">
+						<choose>
+							<when test="type.equals('T'.toString()) ">
+								title like '%' || #{keyword} || '%'
+							</when>
+							<when test="type.equals('C') ">
+								content like '%' || #{keyword} || '%'
+							</when>
+							<when test="type.equals('W') ">
+								writer like '%' || #{keyword} || '%'
+							</when>
+						</choose>
+					</trim>
+				</foreach>
+			</trim>
+		</if>
+	</sql>
 </mapper>
