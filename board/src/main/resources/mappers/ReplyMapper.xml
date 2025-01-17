@@ -33,21 +33,46 @@
 			rno = #{rno}
 	</delete>
 	
+	<delete id="deleteByBno">
+		DELETE FROM
+			tbl_reply
+		WHERE
+			bno = #{bno}
+	</delete>
+	
 	<!-- 전체조회 -->
 	<select id="getList" resultType="ReplyDTO">
-		SELECT
-			/*+ INDEX_DESC(tbl_reply)*/
-			rno,
-		   	reply,
-		   	replyer,
-		   	replydate,
-		   	updatedate
-		FROM 
-		   	tbl_reply
-		WHERE
-		   	bno = #{bno}
-		AND
-			<![CDATA[rno > 0]]>
+		SELECT 
+			* 
+		FROM(
+				SELECT
+					/*+ INDEX_DESC(tbl_reply)*/
+					ROWNUM rn,
+					rno,
+				   	reply,
+				   	replyer,
+				   	replydate,
+				   	updatedate
+				FROM 
+				   	tbl_reply
+				WHERE
+				   	bno = #{bno}
+				AND
+					<![CDATA[rno > 0]]>
+				AND
+					ROWNUM <![CDATA[<=]]> #{cri.end}
+			 ) 
+		WHERE rn >= #{cri.start}
+	</select>
+	
+	<!-- 단건조회 -->
+	<select id="read" parameterType="Long" resultType="replyDTO">
+		SELECT 
+	   		*
+	    FROM 
+	    	tbl_reply
+	    WHERE 
+	    	rno = #{rno}
 	</select>
 	
 	<!-- 총 댓글 수 -->

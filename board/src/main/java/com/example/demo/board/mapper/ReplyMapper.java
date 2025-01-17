@@ -18,9 +18,18 @@ public interface ReplyMapper {
 	// 삭제
 	public int delete(Long rno);
 
-	// 전체조회
-	public List<ReplyDTO> getList(@Param("cri") ReplySearchDTO cri, @Param("bno") Long bno);
+	// 삭제
+	public int deleteByBno(Long bno);
 
+	// 전체조회
+	public List<ReplyDTO> getList(@Param("cri") ReplySearchDTO cri, 
+				                  @Param("bno") Long bno);
+	
+	// 단건조회
+	public ReplyDTO read(Long rno);
+
+	
 	public int getCountByBno(Long bno);
+
 
 }

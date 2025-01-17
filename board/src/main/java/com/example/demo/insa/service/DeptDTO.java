@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class DeptDTO {
-	private int departmentId;
-	private String departmentName;
-	private int managerId;
-	private int locationId;
+	private int departmentId;	// 부서번호
+	private String departmentName;	// 부서명
+	private int managerId;	// 관리자
+	private int locationId;	// 지역코드
 }

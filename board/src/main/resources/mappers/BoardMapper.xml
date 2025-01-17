@@ -29,6 +29,16 @@
 	        bno = #{bno}
 	</update>
 	
+	<!-- 댓글 등록, 삭제될 때 댓글 수 증가 및 감소 하기 -->
+	<update id="updateReplyCnt">
+		UPDATE 
+			tbl_board
+		SET
+			replycnt = replycnt + #{amount}
+		WHERE
+			bno = #{bno}
+	</update>
+	
 	<!-- 삭제 -->
 	<delete id="delete" parameterType="Long">
 		DELETE FROM
@@ -45,7 +55,8 @@
 		    content,
 		    writer,
 		    regdate,
-		    updatedate
+		    updatedate,
+		    replycnt
 		FROM 
 		    tbl_board
 		WHERE
@@ -78,7 +89,8 @@
 		         bno, 
 		         title, 
 		         writer,
-		         regdate
+		         regdate,
+		         replycnt
 		      FROM   
 		         tbl_board
 		      WHERE

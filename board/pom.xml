@@ -89,11 +89,19 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		
+		<!-- https://www.thymeleaf.org/doc/articles/layouts.html -->
 		<!-- thymeleaf Layout 영역 나누기 -->
 		<dependency>
 		  <groupId>nz.net.ultraq.thymeleaf</groupId>
 		  <artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
+		
+		<!-- AOP -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-aop</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<build>

@@ -15,8 +15,10 @@ public interface ReplyService {
 	// 삭제
 	public boolean remove(Long rno);
 	
+	// 단건조회
 	public ReplyDTO get(Long rno);
 	
 	// 전체조회
 	public ReplyPageDTO getList(ReplySearchDTO searchDto, Long bno);
+	
 }

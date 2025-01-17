@@ -67,7 +67,7 @@ public class ReplyController {
 	public ReplyPageDTO getList(@PathVariable(name="page") int page,
 				                @PathVariable(name="bno") Long bno) {
 		
-		ReplySearchDTO searchDto = new ReplySearchDTO(page, 10);
+		ReplySearchDTO searchDto = new ReplySearchDTO(page, 3);
 		
 		return service.getList(searchDto, bno);
 	}

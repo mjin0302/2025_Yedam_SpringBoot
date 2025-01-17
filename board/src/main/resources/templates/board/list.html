@@ -52,7 +52,7 @@
 				<tbody>
 					<tr th:each="board: ${list}">
 						<td th:text="${board.bno}"></td>
-						<td th:text="${board.title}" th:onclick="|location.href='get?bno=${board.bno}'|">제목</td>
+						<td th:text="${board.title}" th:onclick="|location.href='get?bno=${board.bno}'|"><span th:text="|(${board.replycnt})|" style="font-size: 10px;"></span></td>
 						<td th:text="${board.writer}">작성자</td>
 						<td th:text="${#dates.format(board.regdate, 'yyyy-MM-dd HH:mm:ss')}">작성일</td>
 					</tr>
@@ -85,8 +85,6 @@
 		<script th:inline="javascript">
 			/*[[*/ 
 				const result = /* [[ ${ param.result } ]] */ null;
-			
-			
 			
 			/*]]*/
 			

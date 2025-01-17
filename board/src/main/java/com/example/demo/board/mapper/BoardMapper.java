@@ -2,6 +2,8 @@ package com.example.demo.board.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.example.demo.board.dto.BoardDTO;
 import com.example.demo.board.dto.BoardSearchDTO;
 
@@ -24,4 +26,8 @@ public interface BoardMapper {
 
 	// 전체 게시글 수 조회
 	public int getCount(BoardSearchDTO searchDto);
+	
+	// 댓글 등록, 삭제될 때 댓글 수 증가 및 감소 하기
+	public void updateReplyCnt(@Param("bno") Long bno, @Param("amount") int amount);
+
 }
