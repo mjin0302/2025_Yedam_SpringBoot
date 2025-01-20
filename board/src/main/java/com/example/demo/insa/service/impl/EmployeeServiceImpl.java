@@ -9,6 +9,7 @@ import com.example.demo.insa.mapper.EmployeeMapper;
 import com.example.demo.insa.service.EmpDTO;
 import com.example.demo.insa.service.EmpSearchDTO;
 import com.example.demo.insa.service.EmployeeService;
+import com.example.demo.insa.service.JobsDTO;
 
 import lombok.AllArgsConstructor;
 
@@ -58,6 +59,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int getCount(EmpDTO dto) {
 		return eMapper.getCount(dto);
+	}
+
+	// 역할조회
+	@Override
+	public List<JobsDTO> getJobs() {
+		return eMapper.getJobs();
 	}
 
 }

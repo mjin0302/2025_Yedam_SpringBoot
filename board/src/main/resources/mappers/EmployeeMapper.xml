@@ -12,11 +12,11 @@
 				 email,
 				 hire_date, 
 				 job_id)
-	    VALUES (#{employeeId}, 
+	    VALUES (employees_seq.NEXTVAL, 
 	            #{firstName}, 
 	            #{lastName}, 
 	            #{email}, 
-	            #{hireDate}, 
+	            NVL(#{hireDate}, SYSDATE), 
 	            #{jobId})
 	</insert>
 	
@@ -35,23 +35,25 @@
 	
 	<!-- 전체조회 -->
 	<select id="getList" resultType="EmpDTO">
-		SELECT employee_id, 
-		         first_name, 
-		         last_name,
-		         email,
-		         phone_number,
-		         hire_date,
-		         job_id,
-		         salary,
-		         commission_pct,
-		         manager_id,
-		         department_id
-		      FROM   
-		         employees
-		      WHERE
-		      <![CDATA[
-		         employee_id > 0
-		      ]]>
+		SELECT 
+			employee_id, 
+	        first_name, 
+	        last_name,
+	        email,
+	        phone_number,
+	        hire_date,
+	        job_id,
+	        salary,
+	        commission_pct,
+	        manager_id,
+	        department_id
+	    FROM   
+	        employees
+	    WHERE 
+	    	<![CDATA[employee_id > 0]]>
+	    ORDER BY
+	    	employee_id DESC
+	      
 	</select>
 	
 	<!-- 전체조회 -->
@@ -108,6 +110,19 @@
 	  		COUNT(*) 
   		FROM 
   			employees
+	</select>
+	
+	<!-- 역할조회 -->
+	<select id="getJobs" resultType="JobsDTO">
+		SELECT
+		   job_id,
+		   job_title,
+		   min_salary,
+		   max_salary
+		FROM 
+		   jobs
+		ORDER BY
+		   job_id
 	</select>
 
 </mapper>

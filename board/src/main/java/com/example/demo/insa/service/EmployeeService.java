@@ -24,4 +24,7 @@ public interface EmployeeService {
 	// 총 사원수
 	public int getCount(EmpDTO dto);
 	
+	// 역할조회
+	public List<JobsDTO> getJobs();
+	
 }
