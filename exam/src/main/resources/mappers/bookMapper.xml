@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.book.mapper.BookMapper">
+	<insert id="insert" parameterType="BookDTO">
+		INSERT INTO 
+			book_tbl_06 (book_no,
+						 book_name,
+						 book_coverimg,
+						 book_date,
+						 book_price,
+						 book_publisher,
+						 book_info
+						)
+		VALUES			(book_no_seq.NEXTVAL,
+			             #{bookName},
+			             #{bookCoverimg},
+			             #{bookDate},
+			             #{bookPrice},
+			             #{bookPublisher},
+			             #{bookInfo}		
+						)
+	</insert>
+	
+	<select id="getList" resultType="bookDTO">
+		SELECT
+			*
+		FROM
+			book_tbl_06
+		ORDER BY
+			book_no DESC
+	</select>
+	
+	<select id="rentList" resultType="bookDTO">
+		SELECT
+		   a.book_no,
+		   a.book_name,
+		   SUM(b.rent_price) AS total_price,
+		   COUNT(b.book_no) AS rent_count
+		FROM
+		   BOOK_TBL_06 a
+		JOIN
+		   RENT_TBL_06 b ON a.book_no = b.book_no
+		GROUP BY
+		   a.book_no,
+		   a.book_name
+		ORDER BY
+		   a.book_no
+	</select>
+</mapper>
