@@ -25,7 +25,7 @@
 				</thead>
 				
 				<tbody>
-					<tr th:each="emp : ${list}">
+					<tr th:each="emp : ${list}" th:onclick="|location.href='get?empId=${emp.employeeId}'|">
 						<td th:text="${emp.employeeId}" class="text-center">100</td>
 						<td th:text="|${emp.firstName}${emp.lastName}|" class="text-center">홍길동</td>
 						<td th:text="${emp.jobId}" class="text-center">PROGRAMER</td>

@@ -26,6 +26,7 @@ public class BoardController {
 	
 	private final BoardService service;
 	
+	// 전체조회
 	@GetMapping("/list")
 	public void list (Model model, 
 			          BoardSearchDTO searchDto,

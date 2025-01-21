@@ -1,7 +1,10 @@
 package com.example.demo;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.DisplayName;
@@ -40,11 +43,12 @@ public class ReplyControllerTest {
     			""";
 
     	//when //then
+    	// perform -> 요청하는 것 (fetch .then .then 이랑 비슷한 구조임)
     	mvc.perform(post("/replies/new")
     	    	     .content(requestBody)
     	    	     .contentType(MediaType.APPLICATION_JSON_VALUE)
     	)
-    	.andExpect(status().isOk())
+    	.andExpect(status().isOk())	// 요청한 결과가 넘어옴
         .andDo(MockMvcResultHandlers.print());
 
     }
@@ -70,7 +74,26 @@ public class ReplyControllerTest {
 
     }
     
-    @Test
+    // @Test
+    @DisplayName("reply 단건 조회")
+    void getreply() throws Exception {
+    	// given
+    	Long rno = 2L;
+    	String url = "/replies/" + rno;
+    	
+    	// when
+    	mvc.perform(
+    			get(url).
+    			accept(MediaType.APPLICATION_JSON_VALUE)
+		)
+    	
+    	// then
+    	.andExpect(status().isOk())
+    	.andExpect(jsonPath("$.reply").value("댓글수정"))
+        .andDo(print()) ;
+    }
+    
+    //@Test
     @DisplayName("reply 삭제")
     void delete() throws Exception {
     	//given

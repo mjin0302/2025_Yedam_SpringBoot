@@ -26,11 +26,10 @@ public class WebSecurityConfig {
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 		http
-		.authorizeHttpRequests((requests) -> requests
-	            .requestMatchers("/", "/home", "/css/*","/js/*","/assets/*", "/board/list").permitAll()
-	            .requestMatchers("/emp/*","/dept/*").hasRole("ADMIN")
-	            .requestMatchers("/board/*").hasRole("USER")
-	            .anyRequest().authenticated()
+			.authorizeHttpRequests((requests) -> requests
+				.requestMatchers("/", "/home").permitAll()
+				.requestMatchers("/admin").hasRole("ADMIN")
+				.anyRequest().authenticated()
 			)
 			.formLogin((form) -> form
 				.loginPage("/login")

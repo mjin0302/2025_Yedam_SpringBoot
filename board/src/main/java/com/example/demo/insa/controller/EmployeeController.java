@@ -7,13 +7,13 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.demo.insa.service.EmpDTO;
 import com.example.demo.insa.service.EmployeeService;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -41,6 +41,13 @@ public class EmployeeController {
 	public void list(Model model) {
 		
 		model.addAttribute("list", empService.getList());
+	}
+	
+	@GetMapping("/get")
+	public void read(@RequestParam (name="empId") Long empId, Model model) {
+		EmpDTO dto = empService.read(empId);
+		System.out.println("read DTO => " + dto);
+		model.addAttribute("emp", dto);
 	}
 	
 	

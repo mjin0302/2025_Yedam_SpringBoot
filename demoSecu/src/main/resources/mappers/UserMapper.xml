@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.securing.mapper.UserMapper">
+	
+	<resultMap type="UserDTO" id="userMap">
+		<!-- id와 result는 생략가능함 -->
+		<id column="id" property="id"/> <!-- 기본키 매핑할 때 사용 -->
+		<result column="password" property="password"/><!-- 기본키가 아닌 다른 컬럼 매핑할 때 사용 -->
+		
+		<!-- property : 필드명 
+			 ofType : list에 들어가는 타입
+			 select : 조회할 쿼리
+			 column : 넘겨줄 값 -->
+		<collection property="roles"
+		            ofType="RoleDTO"
+		            select="getRole"
+					column="id"
+		></collection>
+	</resultMap>
+	
+	<!-- 단건조회 -->
+	<!-- '{noop}' -> 암호화를 하지 않았다 -->
+	<select id="getUser" resultMap="userMap">
+		SELECT 
+			id,
+			login_id,
+			password as password,
+			full_name,
+			dept_name
+		FROM   
+			t_user
+		WHERE
+			login_id = #{loginId}
+	</select>
+	
+	<!-- 권한조회 -->
+	<select id="getRole" resultType="RoleDTO">
+		SELECT 
+			role_name
+		FROM   
+			t_user_role u
+		JOIN
+			t_role r ON (u.ROLE_ID = r.id)
+		WHERE
+			id = #{id}
+	</select>
+</mapper>

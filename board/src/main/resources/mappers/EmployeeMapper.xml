@@ -87,8 +87,7 @@
 	
 	<!-- 단건조회 -->
 	<select id="read" resultType="EmpDTO">
-		SELECT /*+INDEX_DESC(employees emp_emp_id_pk)*/
-        	rownum rn, 
+		SELECT  
          	employee_id, 
          	first_name, 
          	last_name,
@@ -102,6 +101,8 @@
          	department_id
       	FROM   
          	employees
+        WHERE
+        	employee_id = #{employeeId}
 	</select>
 	
 	<!-- 전체 사원수 조회 -->
