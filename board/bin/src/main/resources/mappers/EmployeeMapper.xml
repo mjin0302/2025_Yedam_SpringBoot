@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.insa.mapper.EmployeeMapper">
+	
+	<!-- 등록 insert -->
+	<insert id="insert" parameterType="empDTO">
+		INSERT INTO 
+			employees
+				(employee_id, 
+				 first_name, 
+				 last_name, 
+				 email,
+				 hire_date, 
+				 job_id)
+	    VALUES (employees_seq.NEXTVAL, 
+	            #{firstName}, 
+	            #{lastName}, 
+	            #{email}, 
+	            NVL(#{hireDate}, SYSDATE), 
+	            #{jobId})
+	</insert>
+	
+	<!-- 수정 -->
+	<update id="update">
+		
+	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete">
+		DELETE FROM
+			employees
+		WHERE
+			employee_id = #{employeeId}
+	</delete>
+	
+	<!-- 전체조회 -->
+	<select id="getList" resultType="EmpDTO">
+		SELECT 
+			employee_id, 
+	        first_name, 
+	        last_name,
+	        email,
+	        phone_number,
+	        hire_date,
+	        job_id,
+	        salary,
+	        commission_pct,
+	        manager_id,
+	        department_id
+	    FROM   
+	        employees
+	    WHERE 
+	    	<![CDATA[employee_id > 0]]>
+	    ORDER BY
+	    	employee_id DESC
+	      
+	</select>
+	
+	<!-- 전체조회 -->
+	<!-- <select id="getList" resultType="EmpDTO">
+		SELECT 
+		   * 
+		FROM (
+		      SELECT /*+INDEX_DESC(employees emp_emp_id_pk)*/
+		         rownum rn, 
+		         employee_id, 
+		         first_name, 
+		         last_name,
+		         email,
+		         phone_number,
+		         hire_date,
+		         job_id,
+		         salary,
+		         commission_pct,
+		         manager_id,
+		         department_id
+		      FROM   
+		         employees
+		      WHERE
+		      <![CDATA[
+		         rownum < #{end}
+		      ]]>
+		      <include refid="criteria"></include>
+		     ) 
+		WHERE <![CDATA[ rn >= #{start} ]]>
+	</select>  -->
+	
+	<!-- 단건조회 -->
+	<select id="read" resultType="EmpDTO">
+		SELECT  
+         	employee_id, 
+         	first_name, 
+         	last_name,
+         	email,
+         	phone_number,
+         	hire_date,
+         	job_id,
+         	salary,
+         	commission_pct,
+         	manager_id,
+         	department_id
+      	FROM   
+         	employees
+        WHERE
+        	employee_id = #{employeeId}
+	</select>
+	
+	<!-- 전체 사원수 조회 -->
+	<select id="getCount" resultType="int">
+		SELECT 
+	  		COUNT(*) 
+  		FROM 
+  			employees
+	</select>
+	
+	<!-- 역할조회 -->
+	<select id="getJobs" resultType="JobsDTO">
+		SELECT
+		   job_id,
+		   job_title,
+		   min_salary,
+		   max_salary
+		FROM 
+		   jobs
+		ORDER BY
+		   job_id
+	</select>
+
+</mapper>
