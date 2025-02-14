@@ -14,8 +14,13 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
+import com.example.demo.securing.CorsConfig;
+
+import lombok.RequiredArgsConstructor;
+
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class WebSecurityConfig {
 
 	@Bean 
@@ -32,6 +37,9 @@ public class WebSecurityConfig {
 	            .requestMatchers("/board/*").hasRole("USER")
 	            .anyRequest().authenticated()
 			)
+			.cors(cors -> cors
+                .configurationSource(CorsConfig.corsConfigurationSource())
+	        )
 			.formLogin((form) -> form
 				.loginPage("/login")
 				.usernameParameter("userid")
@@ -43,8 +51,8 @@ public class WebSecurityConfig {
 //			.usernameParameter("userid")
 //			.and() // 다음 설정 넘어가는거
 			.logout((logout) -> logout.permitAll())
-			//.csrf(csrf -> csrf.disable())
-			;
+			.csrf(w -> w.disable());
+		
 		
 		
 		http.exceptionHandling(ex -> ex.accessDeniedHandler(accessDeniedHandler()));
